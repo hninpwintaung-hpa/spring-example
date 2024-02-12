@@ -7,6 +7,7 @@ import com.javaEETuring.demo.model.Book;
 public interface BookService {
   List<Book> getAllBook();
   Book getBookById(String id);
-  void saveBook(Book book);
-  void updateBook(Book book);
+  Book saveBook(Book book);
+  Book updateBook(Book book);
+  void deleteBook(String id);
 }

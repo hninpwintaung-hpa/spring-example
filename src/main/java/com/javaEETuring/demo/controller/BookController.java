@@ -54,15 +54,16 @@ public class BookController {
 			return "books/newBook";
 		}else {
 			this.bookService.saveBook(book);
-			return "redirect:/books/new";
+			return "redirect:/books";
 
 		}
 	}
 	
 	@PostMapping("/update/{id}")
-	String updateBook(@Valid @ModelAttribute Book book,BindingResult result) {
+	String updateBook(Model model,@Valid @ModelAttribute Book book,BindingResult result) {
 		if(result.hasErrors()) {
 			log.info("Update book has error!");
+			model.addAttribute("book", book);
 			return "books/editBook";
 		}else {
 			this.bookService.updateBook(book);
@@ -96,6 +97,12 @@ public class BookController {
 		log.info("Book" + book);
 		model.addAttribute("book", book);
 		return "books/editBook";
+	}
+
+	@GetMapping("/delete/{id}")
+	String deleteBook(@PathVariable String id) {
+		this.bookService.deleteBook(id);
+		return "redirect:/books";
 	}
 	
 	@GetMapping("/session")
